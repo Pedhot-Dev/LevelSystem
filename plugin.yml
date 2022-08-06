@@ -1,0 +1,5 @@
+name: LevelSystem
+main:  PedhotDev\LevelSystem\Loader
+api: 4.0.0
+version: 0.1.0
+author: PedhotDev
