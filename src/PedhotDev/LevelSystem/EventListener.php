@@ -27,10 +27,10 @@ class EventListener implements Listener {
     public function onJoin(PlayerJoinEvent $event) {
         $levelManager = Loader::getInstance()->getLevelManager();
         $player = $event->getPlayer();
-        if (!isset($levelManager->levels["level"][$player->getName()])) {
+        if (!isset($levelManager->levels["level"][strtolower($player->getName())])) {
             $levelManager->setLevel($player, 1);
         }
-        if (!isset($levelManager->levels["exp"][$player->getName()])) {
+        if (!isset($levelManager->levels["exp"][strtolower($player->getName())])) {
             $levelManager->setExp($player, 0);
         }
     }
