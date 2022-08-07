@@ -27,7 +27,7 @@ class Loader extends PluginBase {
     }
 
     protected function onDisable(): void {
-        $this->data->setAll($this->levelManager->getLevelClass()->levels);
+        $this->levelManager->saveAll();
     }
 
     public function getLevelManager(): LevelManager {
