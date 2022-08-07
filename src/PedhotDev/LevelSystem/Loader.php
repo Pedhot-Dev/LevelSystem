@@ -2,6 +2,7 @@
 
 namespace PedhotDev\LevelSystem;
 
+use PedhotDev\LevelSystem\level\LevelManager;
 use PedhotDev\LevelSystem\utils\SingletonTrait;
 use pocketmine\plugin\PluginBase;
 use pocketmine\Server;
@@ -11,7 +12,7 @@ class Loader extends PluginBase {
     use SingletonTrait;
 
     public Config|null $data = null;
-    private Level $levelManager;
+    private LevelManager $levelManager;
 
     protected function onLoad(): void {
         $this->init();
@@ -20,16 +21,16 @@ class Loader extends PluginBase {
     protected function onEnable(): void {
         $this->saveDefaultConfig();
         $this->data = new Config($this->getDataFolder() . "data.yml");
-        $this->levelManager = new Level();
-        $this->levelManager->levels = $this->data->getAll();
+        $this->levelManager = new LevelManager();
+        $this->levelManager->getLevelClass()->levels = $this->data->getAll();
         Server::getInstance()->getPluginManager()->registerEvents(new EventListener(), $this);
     }
 
     protected function onDisable(): void {
-        $this->data->setAll($this->levelManager->levels);
+        $this->data->setAll($this->levelManager->getLevelClass()->levels);
     }
 
-    public function getLevelManager(): Level {
+    public function getLevelManager(): LevelManager {
         return $this->levelManager;
     }
 

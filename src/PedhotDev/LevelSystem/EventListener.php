@@ -25,7 +25,7 @@ class EventListener implements Listener {
     }
 
     public function onJoin(PlayerJoinEvent $event) {
-        $levelManager = Loader::getInstance()->getLevelManager();
+        $levelManager = Loader::getInstance()->getLevelManager()->getLevelClass();
         $player = $event->getPlayer();
         if (!isset($levelManager->levels["level"][strtolower($player->getName())])) {
             $levelManager->setLevel($player, 1);
@@ -38,14 +38,14 @@ class EventListener implements Listener {
     public function onBreakBlock(BlockBreakEvent $event) {
         $player = $event->getPlayer();
         if ($player->isCreative()) return;
-        $levelManager = Loader::getInstance()->getLevelManager();
+        $levelManager = Loader::getInstance()->getLevelManager()->getLevelClass();
         $levelManager->addExp($player);
     }
 
     public function onPlaceBlock(BlockPlaceEvent $event) {
         $player = $event->getPlayer();
         if ($player->isCreative()) return;
-        $levelManager = Loader::getInstance()->getLevelManager();
+        $levelManager = Loader::getInstance()->getLevelManager()->getLevelClass();
         $levelManager->addExp($player);
     }
 

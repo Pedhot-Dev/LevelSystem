@@ -1,6 +1,6 @@
 <?php
 
-namespace PedhotDev\LevelSystem;
+namespace PedhotDev\LevelSystem\level;
 
 use PedhotDev\LevelSystem\event\LevelUpEvent;
 use pocketmine\player\Player;
@@ -11,7 +11,7 @@ class Level {
     public const DEFAULT_LEVEL = 1;
     public const DEFAULT_EXP = 0;
 
-    public $levels = [];
+    public array $levels = [];
 
     public function set(string $type, $player, int $value): bool {
         if (in_array($type, ["level", "exp"])) return false;
@@ -78,11 +78,6 @@ class Level {
             (new LevelUpEvent(Server::getInstance()->getPlayerExact($player), $this->getLevel($player)))->call();
         }
         return true;
-    }
-
-    public function saveAll() {
-        $data = Loader::getInstance()->data;
-        $data->setAll($this->levels);
     }
 
 }
